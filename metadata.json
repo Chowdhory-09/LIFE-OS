@@ -1,0 +1,7 @@
+{
+  "name": "LifeOS - Routine, Study Planner & Achievement App",
+  "description": "All-in-one personal routine manager, study timetable, monthly roadmap, focus timer, and gamified achievement tracker.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
+

@@ -1,0 +1,164 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "User profile document containing authentication and account metadata.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "maxLength": 128 },
+        "displayName": { "type": "string", "maxLength": 128 },
+        "email": { "type": "string", "maxLength": 128 },
+        "photoURL": { "type": "string", "maxLength": 512 },
+        "createdAt": { "type": "string", "maxLength": 64 },
+        "updatedAt": { "type": "string", "maxLength": 64 }
+      },
+      "required": ["uid", "email"]
+    },
+    "RoutineItem": {
+      "title": "RoutineItem",
+      "description": "Daily recurring or one-off routine scheduled activity.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "title": { "type": "string", "maxLength": 200 },
+        "category": { "type": "string", "maxLength": 64 },
+        "customCategoryName": { "type": "string", "maxLength": 64 },
+        "startTime": { "type": "string", "maxLength": 10 },
+        "endTime": { "type": "string", "maxLength": 10 },
+        "daysOfWeek": { "type": "array" },
+        "isRecurring": { "type": "boolean" },
+        "priority": { "type": "string", "maxLength": 20 },
+        "reminderMinutes": { "type": "number" },
+        "reminderEnabled": { "type": "boolean" },
+        "targetDurationMinutes": { "type": "number" },
+        "description": { "type": "string", "maxLength": 1000 },
+        "linkedGoalId": { "type": "string", "maxLength": 128 }
+      },
+      "required": ["id", "title", "category", "startTime", "endTime"]
+    },
+    "TaskRecord": {
+      "title": "TaskRecord",
+      "description": "Execution record for a scheduled or ad-hoc task instance.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "date": { "type": "string", "maxLength": 20 },
+        "title": { "type": "string", "maxLength": 200 },
+        "category": { "type": "string", "maxLength": 64 },
+        "startTime": { "type": "string", "maxLength": 10 },
+        "endTime": { "type": "string", "maxLength": 10 },
+        "priority": { "type": "string", "maxLength": 20 },
+        "status": { "type": "string", "maxLength": 30 },
+        "pointsAwarded": { "type": "number" },
+        "completedAt": { "type": "string", "maxLength": 64 }
+      },
+      "required": ["id", "date", "title", "status"]
+    },
+    "MonthlyGoal": {
+      "title": "MonthlyGoal",
+      "description": "High-level monthly objective with weekly milestones.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "month": { "type": "string", "maxLength": 10 },
+        "title": { "type": "string", "maxLength": 200 },
+        "category": { "type": "string", "maxLength": 64 },
+        "description": { "type": "string", "maxLength": 1000 },
+        "targetCompletionDate": { "type": "string", "maxLength": 20 },
+        "priority": { "type": "string", "maxLength": 20 },
+        "estimatedHours": { "type": "number" },
+        "completedHours": { "type": "number" },
+        "milestones": { "type": "array" },
+        "isArchived": { "type": "boolean" },
+        "createdAt": { "type": "string", "maxLength": 64 }
+      },
+      "required": ["id", "month", "title"]
+    },
+    "FocusSession": {
+      "title": "FocusSession",
+      "description": "Completed study or Pomodoro focus sprint log.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "taskTitle": { "type": "string", "maxLength": 200 },
+        "category": { "type": "string", "maxLength": 64 },
+        "durationMinutes": { "type": "number" },
+        "completedAt": { "type": "string", "maxLength": 64 },
+        "type": { "type": "string", "maxLength": 30 },
+        "xpEarned": { "type": "number" }
+      },
+      "required": ["id", "taskTitle", "durationMinutes", "completedAt"]
+    },
+    "AchievementBadge": {
+      "title": "AchievementBadge",
+      "description": "Badge unlocked or tracked for habit mastery.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "title": { "type": "string", "maxLength": 100 },
+        "description": { "type": "string", "maxLength": 500 },
+        "category": { "type": "string", "maxLength": 30 },
+        "icon": { "type": "string", "maxLength": 50 },
+        "xpReward": { "type": "number" },
+        "targetValue": { "type": "number" },
+        "currentValue": { "type": "number" },
+        "isUnlocked": { "type": "boolean" },
+        "unlockedAt": { "type": "string", "maxLength": 64 }
+      },
+      "required": ["id", "title", "isUnlocked"]
+    },
+    "UserSettings": {
+      "title": "UserSettings",
+      "description": "User configuration, study targets, and notification settings.",
+      "type": "object",
+      "properties": {
+        "displayName": { "type": "string", "maxLength": 100 },
+        "timezone": { "type": "string", "maxLength": 100 },
+        "timeFormat": { "type": "string", "maxLength": 10 },
+        "weekStartsOn": { "type": "number" },
+        "theme": { "type": "string", "maxLength": 20 },
+        "notificationsEnabled": { "type": "boolean" },
+        "defaultReminderMinutes": { "type": "number" },
+        "soundAlerts": { "type": "boolean" },
+        "defaultFocusDuration": { "type": "number" },
+        "defaultShortBreak": { "type": "number" },
+        "defaultLongBreak": { "type": "number" },
+        "dailyProductivityTargetHours": { "type": "number" },
+        "weeklyStudyTargetHours": { "type": "number" },
+        "autoDetectConflicts": { "type": "boolean" },
+        "totalXp": { "type": "number" }
+      },
+      "required": ["displayName", "timeFormat"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}/profile/{profileId}": {
+      "schema": "UserProfile",
+      "description": "Authenticated user profile data"
+    },
+    "/users/{userId}/routines/{routineId}": {
+      "schema": "RoutineItem",
+      "description": "User daily scheduled routine activities"
+    },
+    "/users/{userId}/tasks/{taskId}": {
+      "schema": "TaskRecord",
+      "description": "User task completion logs and status"
+    },
+    "/users/{userId}/monthlyGoals/{goalId}": {
+      "schema": "MonthlyGoal",
+      "description": "User monthly roadmap goals and milestones"
+    },
+    "/users/{userId}/focusSessions/{sessionId}": {
+      "schema": "FocusSession",
+      "description": "User completed Pomodoro focus sessions"
+    },
+    "/users/{userId}/achievements/{badgeId}": {
+      "schema": "AchievementBadge",
+      "description": "User achievement badges and progress"
+    },
+    "/users/{userId}/settings/{settingId}": {
+      "schema": "UserSettings",
+      "description": "User preferences and settings document"
+    }
+  }
+}

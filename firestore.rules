@@ -1,0 +1,72 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Global default deny
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Helper functions
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    // User profile documents (strictly accessible by the authenticated owner)
+    match /users/{userId}/profile/{profileId} {
+      allow get, list: if isOwner(userId);
+      allow create, update: if isOwner(userId) && isValidId(userId);
+      allow delete: if isOwner(userId);
+    }
+
+    // Daily routine timetable items
+    match /users/{userId}/routines/{routineId} {
+      allow get, list: if isOwner(userId);
+      allow create, update: if isOwner(userId) && isValidId(userId);
+      allow delete: if isOwner(userId);
+    }
+
+    // Task records and completion history
+    match /users/{userId}/tasks/{taskId} {
+      allow get, list: if isOwner(userId);
+      allow create, update: if isOwner(userId) && isValidId(userId);
+      allow delete: if isOwner(userId);
+    }
+
+    // Monthly roadmap goals and milestones
+    match /users/{userId}/monthlyGoals/{goalId} {
+      allow get, list: if isOwner(userId);
+      allow create, update: if isOwner(userId) && isValidId(userId);
+      allow delete: if isOwner(userId);
+    }
+
+    // Focus sessions and Pomodoro logs
+    match /users/{userId}/focusSessions/{sessionId} {
+      allow get, list: if isOwner(userId);
+      allow create, update: if isOwner(userId) && isValidId(userId);
+      allow delete: if isOwner(userId);
+    }
+
+    // Achievement badges and XP rewards
+    match /users/{userId}/achievements/{badgeId} {
+      allow get, list: if isOwner(userId);
+      allow create, update: if isOwner(userId) && isValidId(userId);
+      allow delete: if isOwner(userId);
+    }
+
+    // User preferences and settings
+    match /users/{userId}/settings/{settingId} {
+      allow get, list: if isOwner(userId);
+      allow create, update: if isOwner(userId) && isValidId(userId);
+      allow delete: if isOwner(userId);
+    }
+  }
+}
